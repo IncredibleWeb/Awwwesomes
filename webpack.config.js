@@ -83,6 +83,9 @@ let web = {
         }, {
             from: './src/manifest.json',
             to: './'
+        }, {
+            from: './src/sw.js',
+            to: './'
         }]),
         new ImageminPlugin({
             test: /\.(jpe?g|png|gif|svg)$/i,
