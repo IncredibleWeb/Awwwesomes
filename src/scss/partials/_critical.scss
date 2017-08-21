@@ -93,6 +93,20 @@ header {
     img {
         display: block;
     }
+
+    @include breakpoint {
+        height: 66vh;
+        overflow: hidden;
+        position: relative;
+
+        img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: auto;
+            transform: translate(-50%, -50%);
+        }
+    }
 }
 
 .main {
