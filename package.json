@@ -51,8 +51,7 @@
   "scripts": {
     "build": "webpack",
     "start": "node app.js",
-    "watch": "webpack --watch",
-    "startdev": "concurrently --kill-others \"npm run watch\" \"nodemon app.js --config nodemon.json\""
+    "watch": "webpack --watch"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
