@@ -1,0 +1,50 @@
+$correct-background-color: #6f6;
+$error-background-color: #f66;
+
+.answer-list {
+    padding: 0;
+
+    .item {
+        margin-bottom: 1em;
+        cursor: pointer;
+        padding: 0;
+
+        &.correct {
+            background-color: $correct-background-color;
+            box-shadow: $box-shadow-elevated;
+        }
+
+        &.error {
+            background-color: $error-background-color;
+            box-shadow: $box-shadow-elevated;
+        }
+    }
+}
+
+.subtitle {
+    color: lighten($font-color, 20%);
+    font-style: italic;
+    text-align: left;
+    display: block;
+    width: 100%;
+    padding: 1em;
+}
+
+.next-level {
+    background-color: $theme-color-secondary;
+    color: $theme-color-white;
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 3em;
+    line-height: 3em;
+    font-weight: 400;
+    text-align: center;
+
+    &:visited {
+        color: $theme-color-white;
+    }
+}

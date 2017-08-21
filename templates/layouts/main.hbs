@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ data.meta.title }}</title>
+    <meta name="theme-color" content="#ef8f9d" />
+    <link rel="manifest" href="/manifest.json" />
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="icon" sizes="144x144" href="/img/144.png" />
+    <style type="text/css">{{{data.inlineStyles}}}</style>
+</head>
+
+<body>
+    {{> header }}
+    
+    {{{ body }}}
+
+    {{> modal-overlay }}
+
+    {{> async-css }}
+
+    {{#each data.remoteScripts}}
+        <script src="{{this}}" async></script>
+    {{~/each}}
+</body>
+
+</html>

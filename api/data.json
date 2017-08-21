@@ -1,0 +1,85 @@
+[{
+    "level": 1,
+    "question": "imię",
+    "answers": [
+    {
+        "value": "name; first name",
+        "isCorrect": true
+    },
+    {
+        "value": "dog",
+        "isCorrect": false
+    },
+    {
+        "value": "parrot",
+        "isCorrect": false
+    },
+    {
+        "value": "alcoholic beverage",
+        "isCorrect": false
+    },
+    {
+        "value": "table",
+        "isCorrect": false
+    },
+    {
+        "value": "vegetable soup, broth",
+        "isCorrect": false
+    }]
+}, {
+    "level": 2,
+    "question": "głodny",
+    "answers": [
+    {
+        "value": "sick; unwell",
+        "isCorrect": false
+    },
+    {
+        "value": "hungry",
+        "isCorrect": true
+    },
+    {
+        "value": "bread",
+        "isCorrect": false
+    },
+    {
+        "value": "little, small",
+        "isCorrect": false
+    },
+    {
+        "value": "alcoholic beverage",
+        "isCorrect": false
+    },
+    {
+        "value": "fried chicken",
+        "isCorrect": false
+    }]
+}, {
+    "level": 3,
+    "question": "tak",
+    "answers": [
+    {
+        "value": "no",
+        "isCorrect": false
+    },
+    {
+        "value": "thank you",
+        "isCorrect": false
+    },
+    {
+        "value": "at yours",
+        "isCorrect": false
+    },
+    {
+        "value": "cheers; bless you",
+        "isCorrect": false
+    },
+    {
+        "value": "yes",
+        "isCorrect": true
+    },
+    {
+        "value": "good night",
+        "isCorrect": false
+    }]
+}]

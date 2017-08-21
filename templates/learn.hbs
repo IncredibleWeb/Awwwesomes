@@ -1,0 +1,18 @@
+<main class="main content">
+    <h1>{{ data.apiData.question }}</h1>
+    <form action="/learn" method="post">
+    	<input type="hidden" name="level" value="{{ data.apiData.level }}" />
+		<ul class="answer-list">
+			{{#each data.apiData.answers }}
+				<li class="item card {{#isSelected}}{{#if isCorrect}}correct{{else}}error{{/if}}{{~/isSelected}}">
+			        <div class="card-content">
+			            <input type="submit" name="answer" class="subtitle" value="{{ this.value }}" />
+			        </div>
+		        </li>
+    		{{~/each}}
+	    </ul>
+    </form>
+</main>
+{{#if allowNextLevel}}
+	<a href="/learn?level={{math data.apiData.level "+" 1 }}" class="next-level">Next Level &raquo;</a>
+{{~/if}}
