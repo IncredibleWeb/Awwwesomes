@@ -2,7 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
-import Image from '../helpers/image';
+import Image from '../../helpers/image';
 
 export default class {
     constructor(folder, pathConfigs) {

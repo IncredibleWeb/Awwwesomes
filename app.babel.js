@@ -13,7 +13,7 @@ import compression from 'compression';
 import session from 'express-session';
 import _ from 'lodash/core';
 import Service from './server/services/mock.service';
-import HandlebarsHelpers from './server/helpers/handlebars';
+import HandlebarsHelpers from './helpers/handlebars';
 
 let app = express();
 
