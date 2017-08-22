@@ -1,4 +1,4 @@
-<main class="main content">
+<section class="main content">
     <h1>{{ data.apiData.question }}</h1>
     <form action="/learn" method="post">
     	<input type="hidden" name="level" value="{{ data.apiData.level }}" />
@@ -12,7 +12,7 @@
     		{{~/each}}
 	    </ul>
     </form>
-</main>
+</section>
 {{#if allowNextLevel}}
 	<a href="/learn?level={{math data.apiData.level "+" 1 }}" class="next-level">Next Level &raquo;</a>
 {{~/if}}
