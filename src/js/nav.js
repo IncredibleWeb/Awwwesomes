@@ -1,9 +1,14 @@
-export default class {
+import Router from './router';
+
+export default class Nav {
     constructor(element) {
         let self = this;
         self.isVisible = false;
         self.overlay = document.getElementById('overlay');
         self.element = element;
+
+        // initialise router
+        self.router = new Router(document.querySelector('main'));
 
         self.element.addEventListener('click', (e) => {
             // toggle the overlay on click of the burger icon
@@ -14,6 +19,23 @@ export default class {
             // simulate a click to hide the overlay
             self.element.click();
         });
+
+        let links = self.element.parentElement.querySelectorAll('a');
+        for (let link of links) {
+            link.addEventListener('click', (e) => {
+                // prevent the browser from navigating to a new page
+                e.preventDefault();
+
+                // retrieve the content through the router
+                self.router.render(link.getAttribute('href'));
+
+                // update the pushstate
+                window.history.pushState(null, link.getAttribute('title'), link.getAttribute('href'));
+
+                // close the navigation
+                self.element.click();
+            });
+        }
     }
 
     // toggle the overlay and the state of the navigation
