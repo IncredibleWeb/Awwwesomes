@@ -12,8 +12,8 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import session from 'express-session';
 import _ from 'lodash/core';
-import Service from './server/services/mock.service';
-import HandlebarsHelpers from './server/helpers/handlebars';
+import Service from './api/mock.service';
+import HandlebarsHelpers from './helpers/handlebars';
 
 let app = express();
 
@@ -24,7 +24,7 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let viewsDir = './templates';
+let viewsDir = './src/templates';
 
 // setup express to use handlebars as the templating engine
 let hbs = exphbs.create({
@@ -94,7 +94,7 @@ app.get('/*', (req, res) => {
 
     // retrieve API data if we are on the '/learn' page
     if (urlPath === '/learn') {
-        let apiData = service.getSync(req.query.level);
+        let apiData = service.getData(req.query.level);
 
         // no data retrieved because user has completed the course
         if (!apiData) {

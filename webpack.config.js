@@ -60,7 +60,6 @@ let node = {
 let web = {
     name: 'web',
     devtool: isDev ? 'source-map' : 'hidden-source-map',
-    externals: [NodeExternals()],
     entry: {
         'main.js': './src/js/main.js',
         'inline.css': './src/scss/inline.scss',
@@ -80,6 +79,9 @@ let web = {
         new CopyWebpackPlugin([{
             from: './src/img/',
             to: 'img/'
+        }, {
+            from: './src/templates/',
+            to: 'templates/'
         }]),
         new ImageminPlugin({
             test: /\.(jpe?g|png|gif|svg)$/i,
