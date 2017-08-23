@@ -14,7 +14,12 @@ self.addEventListener('install', function(e) {
                 './img/ic_dashboard_black_24px.svg',
                 './img/ic_school_black_24px.svg',
                 './img/ic_settings_black_24px.svg',
-                './img/logo.png'
+                './img/logo.png',
+                './img/party.png',
+                './templates/index.hbs',
+                './templates/learn.hbs',
+                './templates/finish.hbs',
+                './templates/settings.hbs'
             ]).then(function() {
                 self.skipWaiting();
             });
@@ -33,6 +38,19 @@ self.addEventListener('fetch', function(event) {
             }
             // fetch as normal
             return fetch(event.request);
+        })
+    );
+});
+
+self.addEventListener('push', function(event) {
+    var title = 'Time for training!';
+    var body = 'You haven\t trained your Polish for more than 5 mins!';
+    var icon = '/img/144.png';
+
+    event.waitUntil(
+        self.registration.showNotification(title, {
+            body: body,
+            icon: icon
         })
     );
 });

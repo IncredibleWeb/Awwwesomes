@@ -3,6 +3,7 @@ import Handlebars from 'handlebars/dist/handlebars.min.js';
 import TemplateService from '../../helpers/template.service.js';
 import Learn from './learn';
 import AddToHomeScreen from './a2hs';
+import Push from './push';
 import { getParameterByName } from './util';
 
 export default class Router {
@@ -76,6 +77,11 @@ export default class Router {
                     if (document.getElementById('a2hs')) {
                         let addToHomeScreen = new AddToHomeScreen();
                         addToHomeScreen.configure(document.getElementById('a2hs'));
+                    }
+
+                    // user is on the settings page
+                    if (document.getElementById('pushNotifications')) {
+                        let push = new Push(document.getElementById('pushNotifications'));
                     }
 
                     if (!pop) {
