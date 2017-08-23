@@ -1,136 +1,53 @@
 import _ from 'lodash/core';
-import Image from '../helpers/image';
+import Request from './mock.request';
+import pageData from './pages.json';
+import Adapter from './mock.adapter';
 
 export default class Service {
     constructor() {
-        this.data = [{
-            'level': 1,
-            'question': 'imię',
-            'answers': [{
-                'value': 'name; first name',
-                'isCorrect': true
-            },
-            {
-                'value': 'dog',
-                'isCorrect': false
-            },
-            {
-                'value': 'parrot',
-                'isCorrect': false
-            },
-            {
-                'value': 'alcoholic beverage',
-                'isCorrect': false
-            },
-            {
-                'value': 'table',
-                'isCorrect': false
-            },
-            {
-                'value': 'vegetable soup, broth',
-                'isCorrect': false
-            }]
-        }, {
-            'level': 2,
-            'question': 'głodny',
-            'answers': [{
-                'value': 'sick; unwell',
-                'isCorrect': false
-            },
-            {
-                'value': 'hungry',
-                'isCorrect': true
-            },
-            {
-                'value': 'bread',
-                'isCorrect': false
-            },
-            {
-                'value': 'little, small',
-                'isCorrect': false
-            },
-            {
-                'value': 'alcoholic beverage',
-                'isCorrect': false
-            },
-            {
-                'value': 'fried chicken',
-                'isCorrect': false
-            }]
-        }, {
-            'level': 3,
-            'question': 'tak',
-            'answers': [{
-                'value': 'no',
-                'isCorrect': false
-            },
-            {
-                'value': 'thank you',
-                'isCorrect': false
-            },
-            {
-                'value': 'at yours',
-                'isCorrect': false
-            },
-            {
-                'value': 'cheers; bless you',
-                'isCorrect': false
-            },
-            {
-                'value': 'yes',
-                'isCorrect': true
-            },
-            {
-                'value': 'good night',
-                'isCorrect': false
-            }]
-        }];
+        this.adapter = new Adapter();
+        this.pageData = this.adapter.toPages(pageData);
+    }
 
-        this.pageConfig = {
-            '/': {
-                view: 'index',
-                meta: {
-                    title: 'Awwwesomes Summer Meetup 2017'
-                },
-                title: 'Awwwesomes',
-                images: Image.toResponsiveImage([{
-                    src: '/img/banner.jpg',
-                    alt: 'Poznan Old Market',
-                    width: 720
-                }, {
-                    src: '/img/banner@2x.jpg',
-                    alt: 'Poznan Old Market',
-                    width: 1440
-                }]),
-                html: `
-                    <h1>Let's Learn!</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, quis hic iure est ex, provi consectetur praesentium, atque.</p>`
-            },
-            '/learn': {
-                view: 'learn',
-                meta: {
-                    title: 'Learn Polish'
-                },
-                title: 'Learn Polish'
-            },
-            '/settings': {
-                view: 'settings',
-                meta: {
-                    title: 'Settings'
-                },
-                title: 'Settings'
-            }
-        };
+    get(url) {
+        return new Promise(function(resolve, reject) {
+            // Using Request abstracts away dealing with XMLHttpRequest
+            let requestBuilder = new Request();
+            let request = requestBuilder.getRequest();
+
+            request.open('GET', url);
+            request.onload = function() {
+                // success
+                if (request.status === 200) {
+                    // resolve the promise
+                    resolve(JSON.parse(request.responseText));
+                } else {
+                    // error retrieving file
+                    reject(Error(request.statusText));
+                }
+            };
+
+            request.onerror = function() {
+                // network errors
+                reject(Error('Network Error'));
+            };
+
+            request.send();
+        });
     }
 
     getPageData(urlPath) {
-        return this.pageConfig[urlPath];
+        return Promise.resolve(this.pageData[urlPath]);
     }
 
     getData(level) {
         level = level || 1;
-        return _.find(this.data, (item) => {
-            return item.level === parseInt(level);
+        return this.get('http://localhost:3000/api/data.json').then((response) => {
+            return _.find(response, (item) => {
+                return item.level === parseInt(level);
+            });
+        }).catch((error) => {
+            console.log('Unable to retrieve API data:', error);
         });
     }
 }

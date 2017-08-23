@@ -1,5 +1,5 @@
 # Awwwesomes Summer Meetup - August 2017
-An isomorphic progressive web app demo that includes the Web App Manifest, Service Workers, Cache API and Push Notifications.
+An isomorphic and framework agnostic progressive web app demo that includes the Web App Manifest, Service Workers, Cache API and Push Notifications.
 
 ## Usage
 - Run `npm install` to install all the required dependencies

@@ -1,0 +1,33 @@
+{
+    "/": {
+        "view": "index",
+        "meta": {
+            "title": "Awwwesomes Summer Meetup 2017"
+        },
+        "title": "Awwwesomes",
+        "images": [{
+            "src": "/img/banner.jpg",
+            "alt": "Poznan Old Market",
+            "width": 720
+        }, {
+            "src": "/img/banner@2x.jpg",
+            "alt": "Poznan Old Market",
+            "width": 1440
+        }],
+        "html": "<h1>Let's Learn!</h1><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, quis hic iure est ex, provi consectetur praesentium, atque.</p>"
+    },
+    "/learn": {
+        "view": "learn",
+        "meta": {
+            "title": "Learn Polish"
+        },
+        "title": "Learn Polish"
+    },
+    "/settings": {
+        "view": "settings",
+        "meta": {
+            "title": "Settings"
+        },
+        "title": "Settings"
+    }
+}

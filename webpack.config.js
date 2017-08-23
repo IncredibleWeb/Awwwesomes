@@ -82,6 +82,9 @@ let web = {
         }, {
             from: './src/templates/',
             to: 'templates/'
+        }, {
+            from: './api/**/*.json',
+            to: ''
         }]),
         new ImageminPlugin({
             test: /\.(jpe?g|png|gif|svg)$/i,
