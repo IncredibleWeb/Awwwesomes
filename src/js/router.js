@@ -2,6 +2,7 @@ import ApiService from '../../api/mock.service';
 import Handlebars from 'handlebars/dist/handlebars.min.js';
 import TemplateService from '../../helpers/template.service.js';
 import Learn from './learn';
+import AddToHomeScreen from './a2hs';
 import { getParameterByName } from './util';
 
 export default class Router {
@@ -69,6 +70,12 @@ export default class Router {
                             let destinationUrl = learn.nextLevel.getAttribute('href');
                             this.render(destinationUrl.split('?')[0], '?' + destinationUrl.split('?')[1]);
                         });
+                    }
+
+                    // user is on the settings page
+                    if (document.getElementById('a2hs')) {
+                        let addToHomeScreen = new AddToHomeScreen();
+                        addToHomeScreen.configure(document.getElementById('a2hs'));
                     }
 
                     if (!pop) {

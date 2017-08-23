@@ -12,6 +12,11 @@
         display: block;
         font-weight: 400;
         font-size: .8em;
+
+        &.disabled {
+            color: $disabled-color;
+            pointer-events: none;
+        }
     }
 
     .input {

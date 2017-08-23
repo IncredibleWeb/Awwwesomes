@@ -82,6 +82,7 @@ let web = {
         }, {
             from: './src/sw.js',
             to: './'
+        }, {
             from: './src/templates/',
             to: 'templates/'
         }, {
