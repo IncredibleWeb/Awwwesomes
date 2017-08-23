@@ -10,6 +10,7 @@ import { XMLHttpRequest as ServerXMLHttpRequest } from 'xmlhttprequest';
 export default class Request {
     getRequest() {
         let isServer = this.isOnServer();
+
         let request = null;
         // If we're on the server, then use the imported version
         if (isServer) {

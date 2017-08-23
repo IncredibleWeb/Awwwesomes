@@ -24,52 +24,59 @@ export default class Router {
 
     render(url, search, pop) {
         // retrieve the data for the current page
-        let data = this.apiService.getPageData(url);
+        this.apiService.getPageData(url).then((data) => {
+            let dataPromise = new Promise((resolve, reject) => {
+                // if we are on the learn page
+                if (url.match(/^\/learn\/?$/)) {
+                    // retrieve the additional data for the learn page
+                    this.apiService.getData(getParameterByName('level', search)).then((apiData) => {
+                        // no data retrieved because user has completed the course
+                        if (!apiData) {
+                            data.view = 'finish';
+                        } else {
+                            data.view = 'learn';
+                        }
 
-        // if we are on the learn page
-        if (url.match(/^\/learn\/?$/)) {
-            // retrieve the additional data for the learn page
-            let apiData = this.apiService.getData(getParameterByName('level', search));
+                        data.apiData = apiData;
+                        resolve();
+                    });
+                } else {
+                    resolve();
+                }
+            });
 
-            // no data retrieved because user has completed the course
-            if (!apiData) {
-                data.view = 'finish';
-            } else {
-                data.view = 'learn';
-            }
+            dataPromise.then(() => {
+                // load the template
+                this.templateService.get(data.view).then((response) => {
+                    let template = Handlebars.compile(response);
+                    // bind the retrieved data to the HTML
+                    this.mainEl.innerHTML = template({ data: data });
 
-            data.apiData = apiData;
-        }
+                    // update meta elements
+                    document.title = data.meta.title;
+                    document.getElementById('title').innerHTML = data.title;
 
-        // load the template
-        this.templateService.get(data.view).then((response) => {
-            let template = Handlebars.compile(response);
-            // bind the retrieved data to the HTML
-            this.mainEl.innerHTML = template({ data: data });
+                    // user is on a learn page
+                    if (data.apiData) {
+                        let learn = new Learn(document.getElementById('form'));
 
-            // update meta elements
-            document.title = data.meta.title;
-            document.getElementById('title').innerHTML = data.title;
+                        // add an event listener to the next level link
+                        learn.nextLevel.addEventListener('click', (e) => {
+                            // prevent the browser from navigating to a new page
+                            e.preventDefault();
 
-            // user is on a learn page
-            if (data.apiData) {
-                let learn = new Learn(document.getElementById('form'));
+                            // retrieve the content through the router
+                            let destinationUrl = learn.nextLevel.getAttribute('href');
+                            this.render(destinationUrl.split('?')[0], '?' + destinationUrl.split('?')[1]);
+                        });
+                    }
 
-                // add an event listener to the next level link
-                learn.nextLevel.addEventListener('click', (e) => {
-                    // prevent the browser from navigating to a new page
-                    e.preventDefault();
-
-                    // retrieve the content through the router
-                    let destinationUrl = learn.nextLevel.getAttribute('href');
-                    this.render(destinationUrl.split('?')[0], '?' + destinationUrl.split('?')[1]);
+                    if (!pop) {
+                        // update the pushstate
+                        window.history.pushState(null, data.title, url + (search || ''));
+                    }
                 });
-            }
-
-            if (!pop) {
-                // update the pushstate
-                window.history.pushState(null, data.title, url + (search || ''));
-            }
+            });
         });
     }
 }

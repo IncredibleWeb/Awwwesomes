@@ -1,6 +1,4 @@
 /* constants */
-const isDev = process.env.NODE_ENV !== 'production';
-const port = 3000;
 const outputFolder = 'dist';
 
 /* imports */
@@ -16,7 +14,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 let node = {
     name: 'node',
-    devtool: isDev ? 'inline-sourcemap' : 'hidden-source-map',
+    devtool: 'source-map',
     target: 'node',
     node: {
         __dirname: true
@@ -32,12 +30,8 @@ let node = {
     plugins: [
         new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.DefinePlugin({
-            'process.env': {
-                'isDev': JSON.stringify(isDev),
-                'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-                'port': JSON.stringify(port),
-                'outputFolder': JSON.stringify(outputFolder)
-            }
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+            'process.env.outputFolder': JSON.stringify(outputFolder),
         }),
     ],
     module: {
@@ -59,7 +53,10 @@ let node = {
 
 let web = {
     name: 'web',
-    devtool: isDev ? 'source-map' : 'hidden-source-map',
+    devtool: 'source-map',
+    externals:[{
+        xmlhttprequest: '{XMLHttpRequest:XMLHttpRequest}'
+    }],
     entry: {
         'main.js': './src/js/main.js',
         'inline.css': './src/scss/inline.scss',
@@ -112,37 +109,10 @@ let web = {
             exclude: /node_modules/,
             loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader', 'sass-loader'] })
         }, {
-            test: /\.(png|jpg|svg|ico|gif|json)$/,
+            test: /\.(png|jpg|svg|ico|gif)$/,
             loader: 'url-loader'
         }]
     }
 };
-
-// production plugins
-if (!isDev) {
-    node.plugins.concat([
-        new webpack.optimize.UglifyJsPlugin({
-            mangle: false,
-            sourceMap: false
-        })
-    ]);
-
-    web.plugins.concat([
-        new webpack.optimize.UglifyJsPlugin({
-            mangle: false,
-            sourceMap: false
-        }),
-        new SWPrecacheWebpackPlugin({
-            cacheId: 'project-name',
-            filename: 'sw.js',
-            minify: true,
-            staticFileGlobs: [
-                `/${outputFolder}/**/*.{css,js}`,
-                `/${outputFolder}/img/**`
-            ],
-            stripPrefix: `/${outputFolder}`
-        })
-    ]);
-}
 
 module.exports = [node, web];

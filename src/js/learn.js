@@ -24,22 +24,23 @@ export default class Learn {
                 e.preventDefault();
 
                 // submit the user selection to the API
-                let apiData = self.apiService.getData(level);
-                let answer = _.find(apiData.answers, (item) => {
-                    return item.value === btn.value;
+                self.apiService.getData(level).then((apiData) => {
+                    let answer = _.find(apiData.answers, (item) => {
+                        return item.value === btn.value;
+                    });
+
+                    // clear all other button's state
+                    self.element.querySelectorAll('.item').forEach(n => { n.classList.remove('selected'); });
+                    // mark the selected button
+                    btn.parentElement.parentElement.classList.add('selected');
+                    if (answer.isCorrect) {
+                        // mark the button as correct
+                        btn.parentElement.parentElement.classList.add('correct');
+
+                        // allow access to the next level
+                        self.element.insertAdjacentElement('afterEnd', aTag);
+                    }
                 });
-
-                // clear all other button's state
-                self.element.querySelectorAll('.item').forEach(n => { n.classList.remove('selected'); });
-                // mark the selected button
-                btn.parentElement.parentElement.classList.add('selected');
-                if (answer.isCorrect) {
-                    // mark the button as correct
-                    btn.parentElement.parentElement.classList.add('correct');
-
-                    // allow access to the next level
-                    self.element.insertAdjacentElement('afterEnd', aTag);
-                }
             });
         });
     }
