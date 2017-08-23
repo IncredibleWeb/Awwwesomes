@@ -11,7 +11,7 @@ export default class Service {
                 // success
                 if (request.status === 200) {
                     // resolve the promise with the parsed response text (assumes JSON)
-                    resolve(request.response);
+                    resolve(request.responseText);
                 } else {
                     // error retrieving file
                     reject(Error(request.statusText));

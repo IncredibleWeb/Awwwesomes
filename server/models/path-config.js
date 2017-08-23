@@ -30,15 +30,17 @@ export default class {
         let object = this.defaultPathConfig;
 
         // concatenate with data from the API
-        object = Object.assign(object, this.service.getPageData(urlPath));
+        return this.service.getPageData(urlPath).then((pageData) => {
+            object = Object.assign(object, pageData);
 
-        // check if the path is actually valid.
-        if (!object) {
-            return null;
-        }
+            // check if the path is actually valid.
+            if (!object) {
+                return null;
+            }
 
-        return {
-            'data': object
-        };
+            return {
+                'data': object
+            };
+        });
     }
 }

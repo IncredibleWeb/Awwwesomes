@@ -86,46 +86,50 @@ app.get('/*', (req, res) => {
     }
 
     // retrieve the path data
-    let pathConfigData = pathConfig.getConfig(urlPath);
-    if (!pathConfigData) {
-        res.status(404).send();
-        return;
-    }
-
-    // retrieve API data if we are on the '/learn' page
-    if (urlPath === '/learn') {
-        let apiData = service.getData(req.query.level);
-
-        // no data retrieved because user has completed the course
-        if (!apiData) {
-            pathConfigData.data.view = 'finish';
-        } else {
-            pathConfigData.data.view = 'learn';
+    pathConfig.getConfig(urlPath).then((pathConfigData) => {
+        if (!pathConfigData) {
+            res.status(404).send();
+            return;
         }
 
-        pathConfigData.data.apiData = apiData;
+        // retrieve API data if we are on the '/learn' page
+        if (urlPath === '/learn') {
+            service.getData(req.query.level).then((apiData) => {
+                // no data retrieved because user has completed the course
+                if (!apiData) {
+                    pathConfigData.data.view = 'finish';
+                } else {
+                    pathConfigData.data.view = 'learn';
+                }
 
-        // read data from the session
-        if (req.session.answer) {
-            // update the user's selected answer
-            let answer = _.find(pathConfigData.data.apiData.answers, (item) => {
-                return item.value === req.session.answer;
+                pathConfigData.data.apiData = apiData;
+
+                // read data from the session
+                if (req.session.answer) {
+                    // update the user's selected answer
+                    let answer = _.find(pathConfigData.data.apiData.answers, (item) => {
+                        return item.value === req.session.answer;
+                    });
+
+                    answer.isSelected = true;
+                    if (answer.isCorrect) {
+                        // allow access to the next level
+                        pathConfigData.allowNextLevel = true;
+                    }
+
+                    // clear the session
+                    delete req.session.answer;
+                    delete req.session.isValid;
+                }
+
+                // render the response
+                res.render(pathConfigData.data.view, pathConfigData);
             });
-
-            answer.isSelected = true;
-            if (answer.isCorrect) {
-                // allow access to the next level
-                pathConfigData.allowNextLevel = true;
-            }
-
-            // clear the session
-            delete req.session.answer;
-            delete req.session.isValid;
+        } else {
+            // render the response
+            res.render(pathConfigData.data.view, pathConfigData);
         }
-    }
-
-    // render the response
-    res.render(pathConfigData.data.view, pathConfigData);
+    });
 });
 
 let port = process.env.port || 3000;
