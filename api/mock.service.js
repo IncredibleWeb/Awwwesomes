@@ -104,7 +104,7 @@ export default class Service {
                 }]),
                 html: `
                     <h1>Let's Learn!</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, quis hic iure est ex, provi consectetur praesentium, atque facilis dicta voluptas veritatis dolore voluptatibus ut nisi doloribus minima optio mollitia dignissimos totam exercitationem excepturi et provident. Voluptates sapiente sed voluptate eaque est</p>`
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, quis hic iure est ex, provi consectetur praesentium, atque.</p>`
             },
             '/learn': {
                 view: 'learn',
@@ -118,8 +118,7 @@ export default class Service {
                 meta: {
                     title: 'Settings'
                 },
-                title: 'Settings',
-                html: `<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, quis hic iure est ex, provi consectetur praesentium, atque facilis dicta voluptas veritatis dolore voluptatibus ut nisi doloribus minima optio mollitia dignissimos totam exercitationem excepturi et provident. Voluptates sapiente sed voluptate eaque est</p>`
+                title: 'Settings'
             }
         };
     }
