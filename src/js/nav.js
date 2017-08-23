@@ -29,9 +29,6 @@ export default class Nav {
                 // retrieve the content through the router
                 self.router.render(link.getAttribute('href'));
 
-                // update the pushstate
-                window.history.pushState(null, link.getAttribute('title'), link.getAttribute('href'));
-
                 // close the navigation
                 self.element.click();
             });

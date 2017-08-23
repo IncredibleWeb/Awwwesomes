@@ -1,10 +1,10 @@
 <section class="main content">
     <h1>{{ data.apiData.question }}</h1>
-    <form action="/learn" method="post">
+    <form id="form" action="/learn" method="post">
     	<input type="hidden" name="level" value="{{ data.apiData.level }}" />
 		<ul class="answer-list">
 			{{#each data.apiData.answers }}
-				<li class="item card {{#isSelected}}{{#if isCorrect}}correct{{else}}error{{/if}}{{~/isSelected}}">
+				<li class="item card {{#isSelected}}selected {{#isCorrect}}correct{{/isCorrect}}{{~/isSelected}}">
 			        <div class="card-content">
 			            <input type="submit" name="answer" class="subtitle" value="{{ this.value }}" />
 			        </div>
