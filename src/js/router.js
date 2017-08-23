@@ -81,7 +81,8 @@ export default class Router {
 
                     // user is on the settings page
                     if (document.getElementById('pushNotifications')) {
-                        let push = new Push(document.getElementById('pushNotifications'));
+                        // eslint-disable-next-line no-new
+                        new Push(document.getElementById('pushNotifications'));
                     }
 
                     if (!pop) {
