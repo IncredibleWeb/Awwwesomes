@@ -1,8 +1,7 @@
 [{
     "level": 1,
     "question": "imię",
-    "answers": [
-    {
+    "answers": [{
         "value": "name; first name",
         "isCorrect": true
     },
@@ -29,8 +28,7 @@
 }, {
     "level": 2,
     "question": "głodny",
-    "answers": [
-    {
+    "answers": [{
         "value": "sick; unwell",
         "isCorrect": false
     },
@@ -57,8 +55,7 @@
 }, {
     "level": 3,
     "question": "tak",
-    "answers": [
-    {
+    "answers": [{
         "value": "no",
         "isCorrect": false
     },

@@ -1,5 +1,7 @@
-{{> banner data.images }}
-<main class="main content home">
+<section class="banner">
+	<img src="{{ data.images.src }}" srcset="{{ data.images.srcset }}" alt="{{ data.images.alt }}" />
+</section>
+<section class="main content home">
     <section class="richtext card">
         <div class="card-content">
             {{{ data.html }}}
@@ -8,4 +10,4 @@
             <a href="/learn" class="button" title="get started">Get Started!</a>
         </div>
     </section>
-</main>
+</section>
