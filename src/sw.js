@@ -44,7 +44,7 @@ self.addEventListener('fetch', function(event) {
 
 self.addEventListener('push', function(event) {
     var title = 'Time for training!';
-    var body = 'You haven\t trained your Polish for more than 5 mins!';
+    var body = 'You haven\'t trained your Polish for more than 5 mins!';
     var icon = '/img/144.png';
 
     event.waitUntil(
