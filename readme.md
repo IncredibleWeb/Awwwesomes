@@ -28,5 +28,24 @@ A service worker is a script that your browser runs in the background, separate 
 ### Web App Manifest
 A simple JSON file that must follow the specification available on [W3C](https://w3c.github.io/manifest/"), it is possible to run the web app in full-screen as a standalone application, assign an icon which will be displayed once the application is installed onto the device or assign a theme and background colour to your app. In addition, Chrome on Android also proactively suggests to the user to install the web app using [Web App install banners](https://developers.google.com/web/updates/2015/03/increasing-engagement-with-app-install-banners-in-chrome-for-android).
 
+### Push Notifications
+To test push notifications, you may use the following CURL command, replacing the `--SENDER_KEY--` (found in your GCM account) and `--REGISTRATION_ID--` (written to the console when the user enabled PUSH) with your own, ex:
+```
+
+curl -X POST \
+-H "Authorization: key=--SENDER_KEY--" \
+-H "Content-Type: application/json" \
+-d '{ 
+"registration_ids": [
+"--REGISTRATION_ID--"
+], 
+"data": { 
+"message": "Hello Message"
+},
+"priority": "high"
+}' \
+https://android.googleapis.com/gcm/send
+```
+
 ### Technology
 Built using isomorphic JavaScript, running on ExpressJS on the server-side and native JavaScript on the client-side.
