@@ -39,14 +39,14 @@ export default class Nav {
     toggle() {
         let self = this;
 
-        // burger menu is not visible (ex: desktop)
-        if (!self.element.parentElement.clientHeight) {
-            return;
-        }
-
         self.isVisible = !self.isVisible;
 
         if (self.isVisible) {
+            // burger menu is not visible (ex: desktop)
+            if (!self.element.parentElement.clientHeight) {
+                return;
+            }
+
             self.overlay.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         } else {
