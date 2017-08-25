@@ -38,9 +38,15 @@ export default class Nav {
     // toggle the overlay and the state of the navigation
     toggle() {
         let self = this;
+
         self.isVisible = !self.isVisible;
 
         if (self.isVisible) {
+            // burger menu is not visible (ex: desktop)
+            if (!self.element.parentElement.clientHeight) {
+                return;
+            }
+
             self.overlay.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         } else {

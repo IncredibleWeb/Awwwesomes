@@ -3,3 +3,4 @@ dist/
 *.log
 .sass-cache/
 app.js
+app.js.map
