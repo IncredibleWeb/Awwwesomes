@@ -7,6 +7,12 @@ An isomorphic and framework agnostic progressive web app demo that includes the 
 - Run `npm run build` to build the project using webpack configurations.
 - Run `npm start` to start a node server on `localhost:3000`
 
+## Branches
+The source code is organised in three branches:
+- `master` contains the server-side code, webpack configuration and other core elements.
+- `client-side-improvements` adds unobtrusive JavaScript to improve the user experience according to the principle of progressive enhancement.
+- `progressive-web-app` converts the application into a fully-fledged PWA with A2HS, offline functionality and push notifications.
+
 ## Progressive Web Apps
 “Progressive web apps are ordinary mobile-friendly web applications that may be progressively enhanced into native-like applications through the modern browser.”
 
@@ -28,8 +34,14 @@ A service worker is a script that your browser runs in the background, separate 
 ### Web App Manifest
 A simple JSON file that must follow the specification available on [W3C](https://w3c.github.io/manifest/"), it is possible to run the web app in full-screen as a standalone application, assign an icon which will be displayed once the application is installed onto the device or assign a theme and background colour to your app. In addition, Chrome on Android also proactively suggests to the user to install the web app using [Web App install banners](https://developers.google.com/web/updates/2015/03/increasing-engagement-with-app-install-banners-in-chrome-for-android).
 
-### Push Notifications
-To test push notifications, you may use the following CURL command, replacing the `--SENDER_KEY--` (found in your GCM account) and `--REGISTRATION_ID--` (written to the console when the user enabled PUSH) with your own, ex:
+## Add to Homescreen
+Add to home screen functionality is deferred and enables the 'Add to Homescreen' button on the settings once the browser attempt to show the popup.
+
+## Offline Functionality
+The application supports offline functionality and adds a grayscale filter when the user is connected. The content for the different pages will always be available through service worker Cache API while the data from the API (used in the learn page) will be cached by the browser. This could be extended to be stored through IndexedDB.
+
+## Push Notifications
+The application supports push notifications and shows a notification message. To enable push notifications, you must enable push from the Settings page. To test push notifications, you may use the following CURL command, replacing the `--SENDER_KEY--` (found in your GCM account) and `--REGISTRATION_ID--` (written to the console when the user enabled PUSH) with your own, ex:
 ```
 
 curl -X POST \
