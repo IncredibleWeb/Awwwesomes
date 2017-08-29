@@ -14,6 +14,7 @@ import session from 'express-session';
 import _ from 'lodash/core';
 import Service from './api/mock.service';
 import HandlebarsHelpers from './helpers/handlebars';
+import { requireHttps } from './helpers/routing';
 
 let app = express();
 
@@ -24,7 +25,10 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let viewsDir = './src/templates';
+// require HTTPS
+app.use(requireHttps);
+
+let viewsDir = './dist/templates';
 
 // setup express to use handlebars as the templating engine
 let hbs = exphbs.create({
