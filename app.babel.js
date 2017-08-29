@@ -47,6 +47,9 @@ HandlebarsHelpers.registerHandlebarsHelpers();
 // setup server for static assets
 app.use('/', express.static(`${process.env.outputFolder}`, { maxAge: 604800000 }));
 
+// https://medium.com/@yash.kulshrestha/using-lets-encrypt-with-express-e069c7abe625
+app.use('/.well-known', express.static(path.join(__dirname, '.well-known')));
+
 // setup session middleware
 app.use(session({
     secret: 'test',
